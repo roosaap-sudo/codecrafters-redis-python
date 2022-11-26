@@ -9,7 +9,8 @@ def main():
     # Uncomment this to pass the first stage
 
     server_socket = socket.create_server(("localhost", 6379), reuse_port=True)
-    server_socket.accept() # wait for client
+    conn, address = server_socket.accept() # wait for client
+    server_socket.bind(address)
     server_socket.recv(4096)
     server_socket.send(b"hoi")
     server_socket.close()
