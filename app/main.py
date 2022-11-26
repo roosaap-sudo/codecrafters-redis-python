@@ -10,8 +10,9 @@ def main():
 
     server_socket = socket.create_server(("localhost", 6379), reuse_port=True)
     conn, address = server_socket.accept() # wait for client
-    conn.recv(4096)
-    conn.send(b"+PONG\r\n")
+    while conn.recv(4096):
+        conn.recv(4096)
+        conn.send(b"+PONG\r\n")
     server_socket.close()
 
 if __name__ == "__main__":
